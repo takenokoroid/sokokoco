@@ -3,7 +3,10 @@ import path from "node:path";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkFrontmatter from "remark-frontmatter";
-import remarkHtml from "remark-html";
+import remarkRehype from "remark-rehype";
+import rehypeReact from "rehype-react";
+import { Fragment, jsx, jsxs } from "react/jsx-runtime";
+import type { VFile } from "vfile";
 import { matter } from "vfile-matter";
 
 const getStory = async () => {
@@ -17,13 +20,14 @@ const getStory = async () => {
   const result = await unified()
     .use(remarkParse)
     .use(remarkFrontmatter)
-    .use(() => (_tree, vfile) => {
+    .use(() => (_tree: unknown, vfile: VFile) => {
       matter(vfile);
     })
-    .use(remarkHtml)
+    .use(remarkRehype)
+    .use(rehypeReact, { Fragment, jsx, jsxs })
     .process(file);
   const data = (result.data.matter ?? {}) as Record<string, unknown>;
-  return { title: data.title as string, html: String(result) };
+  return { title: data.title as string, content: result.result };
 };
 
 const Page = async () => {
@@ -32,7 +36,7 @@ const Page = async () => {
   return (
     <article>
       <h1>{story.title}</h1>
-      <div dangerouslySetInnerHTML={{ __html: story.html }} />
+      {story.content}
     </article>
   );
 };
