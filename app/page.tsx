@@ -1,9 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
-import matter from "gray-matter";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
+import remarkFrontmatter from "remark-frontmatter";
 import remarkHtml from "remark-html";
+import { matter } from "vfile-matter";
 
 const getStory = async () => {
   const filePath = path.join(
@@ -13,11 +14,15 @@ const getStory = async () => {
     "woman_passion_lost_story.md",
   );
   const file = fs.readFileSync(filePath, "utf-8");
-  const { data, content } = matter(file);
   const result = await unified()
     .use(remarkParse)
+    .use(remarkFrontmatter)
+    .use(() => (_tree, vfile) => {
+      matter(vfile);
+    })
     .use(remarkHtml)
-    .process(content);
+    .process(file);
+  const data = (result.data.matter ?? {}) as Record<string, unknown>;
   return { title: data.title as string, html: String(result) };
 };
 
