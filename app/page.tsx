@@ -34,7 +34,7 @@ const Page = async () => {
   const story = await getStory();
 
   return (
-    <article>
+    <article className="prose">
       <h1>{story.title}</h1>
       {story.content}
     </article>
