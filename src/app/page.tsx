@@ -12,6 +12,7 @@ import { matter } from "vfile-matter";
 const getStory = async () => {
   const filePath = path.join(
     process.cwd(),
+    "src",
     "content",
     "lives",
     "woman_passion_lost_story.md",
@@ -34,7 +35,7 @@ const Page = async () => {
   const story = await getStory();
 
   return (
-    <article className="prose">
+    <article className="prose mx-auto px-4 py-8 sm:py-12">
       <h1>{story.title}</h1>
       {story.content}
     </article>
