@@ -1,0 +1,36 @@
+{
+  "branches": ["main"],
+  "plugins": [
+    [
+      "@semantic-release/commit-analyzer",
+      {
+        "preset": "conventionalcommits",
+        "releaseRules": [
+          { "type": "feat", "release": "minor" },
+          { "type": "fix", "release": "patch" },
+          { "type": "perf", "release": "patch" },
+          { "type": "refactor", "release": "patch" },
+          { "type": "style", "release": "patch" }
+        ]
+      }
+    ],
+    [
+      "@semantic-release/release-notes-generator",
+      {
+        "preset": "conventionalcommits",
+        "presetConfig": {
+          "types": [
+            { "type": "feat", "section": "✨ Features" },
+            { "type": "fix", "section": "🐛 Bug Fixes" },
+            { "type": "perf", "section": "⚡ Performance" },
+            { "type": "refactor", "section": "♻️ Refactoring" },
+            { "type": "style", "section": "💄 Styles" },
+            { "type": "docs", "section": "📝 Documentation" },
+            { "type": "chore", "section": "🔨 Chores", "hidden": false }
+          ]
+        }
+      }
+    ],
+    "@semantic-release/github"
+  ]
+}
