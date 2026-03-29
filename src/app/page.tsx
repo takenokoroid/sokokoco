@@ -12,6 +12,7 @@ import { matter } from "vfile-matter";
 const getStory = async () => {
   const filePath = path.join(
     process.cwd(),
+    "src",
     "content",
     "lives",
     "woman_passion_lost_story.md",
