@@ -27,19 +27,13 @@ const getStory = async () => {
     .use(remarkRehype)
     .use(rehypeReact, { Fragment, jsx, jsxs })
     .process(file);
-  const data = (result.data.matter ?? {}) as Record<string, unknown>;
-  return { title: data.title as string, content: result.result };
+  return { content: result.result };
 };
 
 const Page = async () => {
   const story = await getStory();
 
-  return (
-    <article className="prose mx-auto px-4 py-8 sm:py-12">
-      <h1>{story.title}</h1>
-      {story.content}
-    </article>
-  );
+  return <article>{story.content}</article>;
 };
 
 export default Page;
