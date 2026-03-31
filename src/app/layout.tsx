@@ -12,7 +12,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     <html lang="ja" className={shipporiMincho.className}>
       <body>
         <Header />
-        {children}
+        <main className="prose mx-auto px-4 py-8 sm:py-12">{children}</main>
       </body>
     </html>
   );

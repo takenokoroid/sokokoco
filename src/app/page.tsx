@@ -35,7 +35,7 @@ const Page = async () => {
   const story = await getStory();
 
   return (
-    <article className="prose mx-auto px-4 py-8 sm:py-12">
+    <article>
       <h1>{story.title}</h1>
       {story.content}
     </article>
