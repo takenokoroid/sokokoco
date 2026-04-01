@@ -9,7 +9,7 @@ const shipporiMincho = Shippori_Mincho({
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html lang="ja" className={shipporiMincho.className}>
+    <html lang="ja" className={`${shipporiMincho.className} [scrollbar-gutter:stable]`}>
       <body>
         <Header />
         <main className="prose mx-auto px-4 py-8 sm:py-12">{children}</main>
