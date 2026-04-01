@@ -6,25 +6,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Sokokoco — 人の人生を読めるWebサイト。Markdownで書かれた人生の物語を静的サイトとして配信する。
+Sokokoco — AI生成の人生物語を読めるWebサイト。Markdownで書かれたフィクションの人生を静的サイトとして配信する。DB・CMS・APIは使わない。
 
-## Commands
+## 設計判断と背景
 
-- `pnpm dev` — 開発サーバー起動
-- `pnpm build` — 静的ビルド（`output: "export"` による SSG）
-- `pnpm lint` — ESLint実行
-- `pnpm commit` — czg emoji によるコミット
-
-## Architecture
-
-- **Next.js 16 (App Router)** + SSG (`output: "export"`)
-- コンテンツは `content/lives/` 配下の Markdown ファイル（remark-frontmatter + vfile-matter でfrontmatter解析、unified + remark で HTML 変換）
-- `app/page.tsx` がサーバーコンポーネントとして Markdown を読み込み描画
-- Tailwind CSS v4（`@tailwindcss/postcss` 経由）
-- パスエイリアス: `@/*` → プロジェクトルート
-
-## Conventions
-
-- 言語: 日本語（`<html lang="ja">`）
-- DB・CMS・API なし。コンテンツはリポジトリ内の Markdown で管理
-- デプロイ先: Vercel
+- コンテンツ（`src/content/lives/*.md`）は `rehype-react` でReact要素に直接変換している（HTML文字列を経由しない）
+- サブコンポーネントは `_components/` ディレクトリに配置する規約
+- コミットは `pnpm commit`（czg emoji）を使う
