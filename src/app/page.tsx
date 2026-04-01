@@ -15,7 +15,7 @@ const getStory = async () => {
     "src",
     "content",
     "lives",
-    "woman_passion_lost_story.md",
+    "fujita-mai.md",
   );
   const file = fs.readFileSync(filePath, "utf-8");
   const result = await unified()
