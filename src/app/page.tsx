@@ -1,39 +1,23 @@
-import fs from "node:fs";
-import path from "node:path";
-import { unified } from "unified";
-import remarkParse from "remark-parse";
-import remarkFrontmatter from "remark-frontmatter";
-import remarkRehype from "remark-rehype";
-import rehypeReact from "rehype-react";
-import { Fragment, jsx, jsxs } from "react/jsx-runtime";
-import type { VFile } from "vfile";
-import { matter } from "vfile-matter";
-
-const getStory = async () => {
-  const filePath = path.join(
-    process.cwd(),
-    "src",
-    "content",
-    "lives",
-    "woman_passion_lost_story.md",
-  );
-  const file = fs.readFileSync(filePath, "utf-8");
-  const result = await unified()
-    .use(remarkParse)
-    .use(remarkFrontmatter)
-    .use(() => (_tree: unknown, vfile: VFile) => {
-      matter(vfile);
-    })
-    .use(remarkRehype)
-    .use(rehypeReact, { Fragment, jsx, jsxs })
-    .process(file);
-  return { content: result.result };
-};
+import Link from "next/link";
+import { getAllLives } from "@/lib/lives";
 
 const Page = async () => {
-  const story = await getStory();
+  const lives = await getAllLives();
 
-  return <article>{story.content}</article>;
+  return (
+    <ul className="not-prose list-none p-0">
+      {lives.map((life) => (
+        <li key={life.slug}>
+          <Link
+            href={`/lives/${life.slug}`}
+            className="block border-b border-gray-200 py-4 text-lg no-underline hover:bg-gray-50"
+          >
+            {life.title}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
 };
 
 export default Page;
