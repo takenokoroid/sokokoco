@@ -35,7 +35,10 @@ export const getLifeBySlug = async (slug: string) => {
     .use(rehypeReact, { Fragment, jsx, jsxs })
     .process(file);
 
-  return { slug, title, content: result.result };
+  const tags: string[] =
+    (result.data.matter as Record<string, unknown>)?.tags as string[] ?? [];
+
+  return { slug, title, tags, content: result.result };
 };
 
 export const getAllLives = async () => {
