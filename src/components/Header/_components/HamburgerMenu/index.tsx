@@ -28,6 +28,12 @@ const HamburgerMenu = () => {
         className="m-0 mt-1 min-w-40 rounded border border-gray-200 bg-white py-1 shadow-lg [inset:unset] [position-anchor:--menu-button] [top:anchor(bottom)] [right:anchor(right)]"
       >
         <a
+          href="/search"
+          className="block px-4 py-2 text-sm hover:bg-gray-100"
+        >
+          タグで探す
+        </a>
+        <a
           href="/about"
           className="block px-4 py-2 text-sm hover:bg-gray-100"
         >
