@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import LifeList from "@/components/LifeList";
 
 type LifeMeta = {
   slug: string;
@@ -44,23 +44,9 @@ const SearchContent = ({
       </div>
 
       {filteredLives.length > 0 && (
-        <ul className="mt-6 list-none p-0">
-          {filteredLives.map((life) => (
-            <li key={life.slug}>
-              <Link
-                href={`/lives/${life.slug}`}
-                className="block border-b border-gray-200 py-4 no-underline hover:bg-gray-50"
-              >
-                <span className="text-lg">{life.title}</span>
-                {life.tags.length > 0 && (
-                  <span className="mt-0.5 block text-xs text-gray-300">
-                    {life.tags.join("・")}
-                  </span>
-                )}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <div className="mt-6">
+          <LifeList lives={filteredLives} />
+        </div>
       )}
     </div>
   );
